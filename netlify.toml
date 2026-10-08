@@ -1,0 +1,55 @@
+# Paramount Hospitality — Netlify config (static site, no build step)
+[build]
+  publish = "."
+
+[[headers]]
+  for = "/*"
+  [headers.values]
+    X-Frame-Options = "SAMEORIGIN"
+    X-Content-Type-Options = "nosniff"
+    Referrer-Policy = "strict-origin-when-cross-origin"
+    Permissions-Policy = "camera=(), microphone=(), geolocation=()"
+
+[[headers]]
+  for = "/*.html"
+  [headers.values]
+    Cache-Control = "public, max-age=0, must-revalidate"
+
+[[headers]]
+  for = "/*.css"
+  [headers.values]
+    Cache-Control = "public, max-age=0, must-revalidate"
+
+[[headers]]
+  for = "/*.js"
+  [headers.values]
+    Cache-Control = "public, max-age=0, must-revalidate"
+
+[[headers]]
+  for = "/assets/*"
+  [headers.values]
+    Cache-Control = "public, max-age=2592000"
+
+[[headers]]
+  for = "/assets/*.mp4"
+  [headers.values]
+    Content-Type = "video/mp4"
+    Accept-Ranges = "bytes"
+    Cache-Control = "public, max-age=2592000"
+
+[[redirects]]
+  from = "/islamabad"
+  to = "/islamabad.html"
+  status = 200
+[[redirects]]
+  from = "/karachi"
+  to = "/karachi.html"
+  status = 200
+[[redirects]]
+  from = "/lahore"
+  to = "/lahore.html"
+  status = 200
+[[redirects]]
+  from = "/khaira-gali"
+  to = "/khaira-gali.html"
+  status = 200
