@@ -3,13 +3,16 @@
   const reduce=matchMedia("(prefers-reduced-motion: reduce)").matches;
   /* page transition curtain */
   let cur=document.querySelector(".page-curtain");if(!cur){cur=document.createElement("div");cur.className="page-curtain";cur.innerHTML='<img src="assets/official-logo.png" alt="">';document.body.prepend(cur)}
-  const lift=()=>document.documentElement.classList.add("page-in");setTimeout(lift,reduce?0:1050);   // let the logo draw in, then reveal the page
+  const introDone=document.documentElement.classList.contains("intro-done");
+  const lift=()=>document.documentElement.classList.add("page-in");if(introDone)lift();else setTimeout(lift,reduce?0:1050);   // logo intro only on the first page of a visit
   addEventListener("pageshow",e=>{if(e.persisted){document.documentElement.classList.remove("page-out");document.documentElement.classList.add("page-in");const n=document.querySelector(".site-nav");n&&n.classList.remove("open","closing","fade","leaving");document.body.classList.remove("menu-open")}});
   document.addEventListener("click",e=>{
     const a=e.target.closest("a[href]");if(!a||reduce||e.defaultPrevented||e.metaKey||e.ctrlKey||a.target==="_blank")return;
     const href=a.getAttribute("href");if(!href||href.startsWith("#")||/^(https?:|mailto:|tel:)/.test(href))return;
     const url=new URL(href,location.href);if(url.origin!==location.origin)return;
     const norm=p=>p.replace(/\/$/,"/index.html").replace(/\.html$/,"");if(norm(url.pathname)===norm(location.pathname)&&url.hash){return}   // same page (also "/" vs "/index.html" on Netlify)
+    let played=false;try{played=!!sessionStorage.getItem("phgIntro")}catch(err){}
+    if(played)return;   // intro already played this visit — open the next page with no logo curtain
     e.preventDefault();document.documentElement.classList.add("page-out");setTimeout(()=>location.href=url.href,420);
   });
   if(reduce)return;

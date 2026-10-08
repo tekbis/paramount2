@@ -1180,6 +1180,7 @@ html.bk-lock,html.bk-lock body{overflow:hidden}
 html.page-in .page-curtain{opacity:0;transition:opacity .7s ease .05s}
 html.page-in .page-curtain img{transform:scale(1.04);transition:transform .9s var(--ease)}
 html.page-out .page-curtain img{animation:none;opacity:.95;clip-path:none;filter:none}
+html.intro-done .page-curtain{display:none!important;animation:none!important}
 .preloader{display:none!important}
 
 /* ===== Footer social icons ===== */

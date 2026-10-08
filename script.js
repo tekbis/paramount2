@@ -324,7 +324,9 @@ $$(".slider .slide").forEach((s,i)=>s.style.setProperty("--si",i));
         target.querySelectorAll(".reveal").forEach(r=>r.classList.add("visible"));target.classList.add("visible");
         history.replaceState(null,"",url.hash);
         requestAnimationFrame(()=>{n.classList.add("fade");setTimeout(()=>n.classList.remove("closing","fade"),480)})});
-    }else if(url.origin===location.origin&&!a.target){e.preventDefault();e.stopImmediatePropagation();n.classList.add("leaving");
-      document.documentElement.classList.add("page-out");setTimeout(()=>{location.href=url.href},340)}
+    }else if(url.origin===location.origin&&!a.target){e.preventDefault();e.stopImmediatePropagation();
+      let played=false;try{played=!!sessionStorage.getItem("phgIntro")}catch(err){}
+      if(played){location.href=url.href;return}
+      n.classList.add("leaving");document.documentElement.classList.add("page-out");setTimeout(()=>{location.href=url.href},340)}
   },true);
 })();
